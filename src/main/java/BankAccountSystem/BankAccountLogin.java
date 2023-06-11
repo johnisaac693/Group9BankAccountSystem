@@ -45,12 +45,5 @@ public class BankAccountLogin {
      f.add(password);
      f.add(btnLogin);
      f.add(btnForgotPassword);
-
-
-
-
-    }
-
-
-
+}
 }
