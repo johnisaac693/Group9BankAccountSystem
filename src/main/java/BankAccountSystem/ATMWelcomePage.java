@@ -3,14 +3,17 @@ package BankAccountSystem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class ATMWelcomePage {
+public class ATMWelcomePage implements ActionListener {
     
     JFrame f  = new JFrame("Welcome To Bank Account Mangement System");
     private JButton registerButton;
     private JButton loginButton;
 
     public ATMWelcomePage() {
+        
+        //GUI Constructor
         f.setTitle("ATM Welcome Page");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(600, 300);
@@ -31,18 +34,34 @@ public class ATMWelcomePage {
         registerButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         registerButton.setBackground(Color.white);
         registerButton.setBounds(175, 155, 84, 19);
+        registerButton.addActionListener(this);
         
         loginButton = new JButton("Login");
         loginButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         loginButton.setBackground(Color.white);
         loginButton.setBounds(315, 155, 84, 19);
+        loginButton.addActionListener(this);
         
         f.add(welcomeLabel);
         f.add(dywt);
         f.add(registerButton);
         f.add(loginButton);
-        
     }
+    //Button functionality
+     @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if (e.getSource() == loginButton)
+            {
+                f.dispose();
+                new BankAccountLogin();
+            }
+            
+            else if (e.getSource() == registerButton)
+            {
+                 f.dispose();
+                new RegistrationTrial1();
+            }
+        }
 
 }
-
