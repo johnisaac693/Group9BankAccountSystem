@@ -54,7 +54,7 @@ public class RegistrationTrial1 extends JFrame {
     private JTextField jTextField8;
     private JTextField jTextField9;
     
-    private String AccType [] = { "Savings Account", "Checking Account", "Retirement Account", "Brokerage Account"};
+    private String AccType [] = { "Savings Account", "Checking Account"};
     
     private String Pref [] = { "Ms", "Mrs", "Mr"};
     
@@ -195,7 +195,7 @@ public class RegistrationTrial1 extends JFrame {
                 con.add(jTextField8);
                 
                 jTextField9 = new JTextField();
-                jTextField9.setText("(State)");
+                jTextField9.setName("(State)");
                 jTextField9.setFont(new Font("Arial", Font.PLAIN,13));
                 jTextField9.setBounds(270,370,210,20);
                 con.add(jTextField9);
@@ -331,6 +331,7 @@ public class RegistrationTrial1 extends JFrame {
                 jButton1.setText("Register The Account");
                 jButton1.setFont(new Font("Arial", Font.PLAIN, 15));
                 jButton1.setBounds(220, 930, 210, 40);
+                jButton1.setBackground(Color.white);
 //                jButton1.addActionLister();
                 con.add(jButton1);
                 
