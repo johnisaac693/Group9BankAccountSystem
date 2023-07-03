@@ -59,10 +59,10 @@ public class TransactionMenu {
         
         //mainpanel and components
         mainPanel = new JPanel();
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(10,50,15,50));
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        Font font = new Font("Segoe UI", Font.BOLD, 25) ;
-        JLabel lblTransacMenu = new JLabel("Choose Which Transaction to Make");
+        JLabel lblTransacMenu = new JLabel("CHOOSE WHICH TRANSACTION TO MAKE");
+        lblTransacMenu.setFont(new Font("Segoe UI", Font.BOLD, 25));
         lblTransacMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(lblTransacMenu);
         mainPanel.add(fieldpanel);

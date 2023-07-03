@@ -5,7 +5,7 @@ public class Main {
        //new ATMWelcomePage();
         new TransactionMenu();
 //       new BankAccountLogin();
-//Rizon Test
+//Rizon Tests
     }
     
 }
