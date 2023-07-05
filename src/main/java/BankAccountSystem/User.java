@@ -6,12 +6,13 @@ import java.util.*;
 
 public class User {
     
-    private String Name;
-    private String AccNum;
-    private String email;
-    private String password;
-    private int mobilenum;
-    private float Balance;
+    private String Name = "John Isaac Rizon";
+    private String AccNum = "Sample Account Number";
+    private String email = "Sampleemail@email.com";
+    private String password = "Samplepassword";
+    private String mobilenum = "0123456789";
+    private float CheckingBalance = 800;
+    private float SavingsBalance = 1200;
     
      public String getName()
     {
@@ -33,13 +34,19 @@ public class User {
            return password;
        }
        
-    public int getMobileNum()
+    public String getMobileNum()
     {
       return mobilenum;
     }
     
-    public float getBalance()
+    public float GetCheckingBalance()
     {
-        return Balance;
+        return CheckingBalance;
     }
+    
+    public float GetSavingsBalance()
+    {
+        return SavingsBalance;
+    }
+    
 }
