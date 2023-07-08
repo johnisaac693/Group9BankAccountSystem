@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class TransactionMenu {
+public class TransactionMenu implements ActionListener{
     JFrame f = new JFrame("Transaction Menu");
     JPanel fieldpanel, mainPanel;
     JButton btnWithdraw, btnDeposit, btnBankTrans;
@@ -23,10 +23,12 @@ public class TransactionMenu {
         btnWithdraw = new JButton("Withdraw");
         btnWithdraw.setBackground(Color.white);
         btnWithdraw.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnWithdraw.addActionListener(this);
         
         btnDeposit = new JButton("Deposit");
         btnDeposit.setFont(new Font("Segoe UI", Font.BOLD, 12));
         btnDeposit.setBackground(Color.white);
+        btnDeposit.addActionListener(this);
         
         btnBankTrans = new JButton("Bank Transfer");
         btnBankTrans.setBackground(Color.white);
@@ -73,15 +75,28 @@ public class TransactionMenu {
         centerFrame();
         f.setVisible(true);
         f.setResizable(false);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        
     }
+    
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      if (e.getSource() == btnWithdraw)
+      {
+         new Withdraw();
+      }
+      
+      else if (e.getSource() == btnDeposit)
+      {
+          new Deposit();
+      }
+    }
+    
     public void centerFrame() {
         Dimension currentScreen = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((currentScreen.getWidth() - f.getWidth()) / 2);
         int y = (int) ((currentScreen.getHeight() - f.getHeight()) / 2);
         f.setLocation(x, y);
     }
-    
-    
 }
