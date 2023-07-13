@@ -6,12 +6,14 @@ package BankAccountSystem;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.*;
+import static javax.swing.JOptionPane.showMessageDialog;
 /**
  *
  * @author G-HUBSERVER
  */
-public class BankTransferTransaction extends JFrame {
+public class BankTransferTransaction extends JFrame implements ActionListener{
+    User user = User.getInstance();
     
     private JLabel title;
     private JLabel RBankNumLabel;
@@ -127,6 +129,7 @@ public class BankTransferTransaction extends JFrame {
         BankTLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         ConfirmBtn = new JButton("Confirm");
         ConfirmBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ConfirmBtn.addActionListener(this);
         mainPanel.add(BankTLabel);
         mainPanel.add(contentpanel);
         mainPanel.add(ConfirmBtn);
@@ -137,7 +140,7 @@ public class BankTransferTransaction extends JFrame {
         centerFrame();
         f.setVisible(true);
         f.setResizable(false);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
     }
     
@@ -146,6 +149,20 @@ public class BankTransferTransaction extends JFrame {
         int x = (int) ((currentScreen.getWidth() - f.getWidth()) / 2);
         int y = (int) ((currentScreen.getHeight() - f.getHeight()) / 2);
         f.setLocation(x, y);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       if (e.getSource() == ConfirmBtn)
+        {
+            String amounttransfer = AmountTxt.getText();
+            String recipientname = RNameTxt.getText();
+            float checkingtransfer = Float.parseFloat(amounttransfer);
+            user.subtractChecking(checkingtransfer);
+             showMessageDialog(null, "You have deposited "+ checkingtransfer + " to " + recipientname + " from your Checking Account!");
+            
+           
+        }
     }
        
    
