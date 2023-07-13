@@ -33,7 +33,7 @@ public class TransactionMenu implements ActionListener{
         btnBankTrans = new JButton("Bank Transfer");
         btnBankTrans.setBackground(Color.white);
         btnBankTrans.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        
+        btnBankTrans.addActionListener(this);
         
         
         fieldpanel = new JPanel();
@@ -90,6 +90,10 @@ public class TransactionMenu implements ActionListener{
       else if (e.getSource() == btnDeposit)
       {
           new Deposit();
+      }
+      else if (e.getSource() == btnBankTrans)
+      {
+          new BankTransferTransaction();
       }
     }
     
