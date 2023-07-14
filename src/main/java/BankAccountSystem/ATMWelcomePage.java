@@ -60,7 +60,7 @@ public class ATMWelcomePage implements ActionListener {
             else if (e.getSource() == registerButton)
             {
                  f.dispose();
-                new RegistrationTrial1();
+                new Reworkedregform();
             }
         }
 

@@ -1,20 +1,26 @@
 package BankAccountSystem;
-import java.awt.*;
-import javax.swing.*;
 
-public class BankAccountLogin {
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import static javax.swing.JOptionPane.showMessageDialog;
+
+public class BankAccountLogin implements ActionListener{
+    
+   
     JFrame f = new JFrame("Login");
      private JLabel lblPhoneNumber, lblPassword;
      private JTextField phonenum = new JTextField();
-     private JPasswordField password = new JPasswordField();
+     private JTextField password = new JTextField();
      private JButton btnLogin, btnForgotPassword;
 
     public BankAccountLogin() {
      f.setSize(400, 300);
      f.setLayout(null);
-     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      f.setVisible(true);
      f.setResizable(false);
+     f.setLocationRelativeTo(null);
 
      lblPhoneNumber = new JLabel("Phone Number:");
      lblPhoneNumber.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -33,11 +39,13 @@ public class BankAccountLogin {
      btnLogin.setFont(new Font("Segoe UI", Font.PLAIN, 12));
      btnLogin.setBackground(Color.white);
      btnLogin.setBounds(82, 112, 72, 23);
+     btnLogin.addActionListener(this);
 
      btnForgotPassword = new JButton("Forgot Password?");
      btnForgotPassword.setFont(new Font("Segoe UI", Font.PLAIN, 12));
      btnForgotPassword.setBackground(Color.white);
      btnForgotPassword.setBounds(171, 112, 130, 23);
+     btnForgotPassword.addActionListener(this);
 
      f.add(lblPhoneNumber);
      f.add(lblPassword);
@@ -46,4 +54,23 @@ public class BankAccountLogin {
      f.add(btnLogin);
      f.add(btnForgotPassword);
 }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnLogin) {
+            User user = User.getInstance();
+            
+            String mobilenumber = phonenum.getText();
+            String passphrase = password.getText();
+            
+            if (user.comparelogin(mobilenumber, passphrase)== true) {
+                showMessageDialog(null, "Login Successful!");
+                f.dispose();
+                new MainMenu();
+            }
+            else
+             showMessageDialog(null, "Your number or password is incorrect!");
+            
+        }
+    }
 }

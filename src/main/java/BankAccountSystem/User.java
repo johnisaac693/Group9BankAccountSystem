@@ -5,11 +5,12 @@ import java.util.*;
 public class User {
     private static User instance;
 
-    private String Name = "Isaac";
-    private String AccNum = "12345";
-    private String email = "email";
-    private String password = "password";
-    private String mobilenum = "12345";
+    private String Name;
+    private String AccNum;
+    private String email;
+    private String password;
+    private String mobilenum;
+    private String address;
     private float CheckingBalance;
     private float SavingsBalance;
 
@@ -50,6 +51,36 @@ public class User {
         return SavingsBalance;
     }
 
+    
+    // SETTER
+    
+     public void setName(String nameset) {
+        Name = nameset;
+    }
+
+    public void setEmail(String emailset) {
+        email = emailset;
+    }
+
+    public void setPassword(String passwordString) {
+        password = passwordString;
+    }
+
+    public void setMobileNum(String mobileString) {
+        mobilenum = mobileString;
+    }
+    
+    public void setAddress (String addressString){
+    
+        address = addressString;
+    }
+    
+    public void setAccNumber(String accString){
+        AccNum = accString;
+    }
+
+  
+    //BANK FUNCTIONS
     public void subtractSavings(float x) {
         SavingsBalance -= x;
     }
@@ -65,4 +96,11 @@ public class User {
     public void addChecking(float x) {
         CheckingBalance += x;
     }
+    
+     public boolean comparelogin (String phonenumber, String passphrase){
+        return (phonenumber == mobilenum && passphrase == password);
+    }
+    
+    
+   
 }

@@ -1,10 +1,12 @@
-package com.mycompany.reworkedregform;
+package BankAccountSystem;
 
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class Reworkedregform extends JFrame implements ActionListener {
 
@@ -28,6 +30,7 @@ public class Reworkedregform extends JFrame implements ActionListener {
     private JLabel IncOptionalLbl;
     private JLabel NationalityLbl;
     private JLabel EmployerLbl;
+    private JLabel PasswordLbl;
     
     private JTextField FnameTxt;
     private JTextField InitialsTxt;
@@ -46,6 +49,7 @@ public class Reworkedregform extends JFrame implements ActionListener {
     private JTextField EmployerTxt;
     private JTextField IncomeTxt;
     private JTextField NationalityTxt;
+    private JTextField PasswordTxt;
     
     
     private JScrollPane scrollPane;
@@ -374,11 +378,30 @@ public class Reworkedregform extends JFrame implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         con.add(TermsCB,gbc);
         
+        PasswordLbl = new JLabel("Password");
+        PasswordLbl.setFont(new Font("Arial", Font.PLAIN, 12));
+        gbc.gridx = 0;
+        gbc.gridy = 23;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        con.add(PasswordLbl,gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+         PasswordTxt = new JTextField();
+        PasswordTxt.setFont(new Font("Arial", Font.PLAIN,13));
+        gbc.gridx = 0;
+        gbc.gridy = 24;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        con.add(PasswordTxt,gbc);
+        
+        
         
         
         RegisterB = new JButton();
         RegisterB.setText("Register The Account");
         RegisterB.setFont(new Font("Arial", Font.PLAIN, 15));
+        RegisterB.addActionListener(this);
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.gridwidth = 3;
@@ -398,6 +421,40 @@ public class Reworkedregform extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (e.getSource() == RegisterB)
+        {
+           User user = new User();
+            String AccountNumber = RandomAccountNumberGenerator.generateAccountNumber();
+            
+            String firstname = FnameTxt.getText();
+            String midname = MnameTxt.getText();
+            String lastname = LnameTxt.getText();
+            String phoneno = TelnoTxt.getText();
+            String street = StreetTxt.getText();
+            String City = CityTxt.getText();
+            String province = StateTxt.getText();
+            String birthday = BirthTxt.getText();
+            String password = PasswordTxt.getText();
+            
+            String fullname = firstname + " " + midname + " " + lastname;
+            String address = street + " " + City + " " + province;
+            
+            
+            
+            
+            user.setName(fullname);
+            user.setMobileNum(phoneno);
+            user.setPassword(password);
+            user.setAddress(address);
+            user.setAccNumber(AccountNumber);
+            
+            showMessageDialog(null, "Hello, "+ user.getName() + " welcome to the bank!");
+           
+            dispose();
+            new BankAccountLogin();
+            
+        }
     }
 }
+
+

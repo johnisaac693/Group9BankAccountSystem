@@ -87,4 +87,7 @@ public class MainMenu extends JFrame implements ActionListener {
         int y = (int) ((currentScreen.getHeight() - getHeight()) / 2);
         setLocation(x, y);
     }
+    
+    
+    
 }
