@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package BankAccountSystem;
+package com.mycompany.reworkedregform;
 
 
 import java.awt.*;
@@ -13,47 +9,48 @@ import java.awt.event.ActionListener;
 public class Reworkedregform extends JFrame implements ActionListener {
 
     private JButton RegisterB;
-    private JCheckBox jCheckBox1;
-    private JComboBox jComboBox1;
-    private JComboBox jComboBox2;
-    private JComboBox jComboBox3;
-    private JLabel jLabel1;
-    private JLabel jLabel10;
-    private JLabel jLabel11;
-    private JLabel jLabel12;
-    private JLabel jLabel13;
-    private JLabel jLabel14;
-    private JLabel jLabel15;
-    private JLabel jLabel16;
-    private JLabel jLabel17;
-    private JLabel jLabel18;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
-    private JLabel jLabel5;
-    private JLabel jLabel6;
-    private JLabel jLabel7;
-    private JLabel jLabel8;
-    private JLabel jLabel9;
+    
+    private JCheckBox TermsCB;
+    private JComboBox PrefixLbl;
+    private JComboBox MStatusCB;
+    
+    private JLabel TitleLbl;
+    private JLabel NameLbl;
+    private JLabel TelnoLbl;
+    private JLabel EmailLbl;
+    private JLabel HomeAddLbl;
+    private JLabel BirthLbl;
+    private JLabel MStatusLbl;
+    private JLabel LanguageLbl;
+    private JLabel OccupLbl;
+    private JLabel IncomeLbl;
+    private JLabel EmpOptionalLbl;
+    private JLabel IncOptionalLbl;
+    private JLabel NationalityLbl;
+    private JLabel EmployerLbl;
+    
+    private JTextField FnameTxt;
+    private JTextField InitialsTxt;
+    private JTextField MnameTxt;
+    private JTextField LnameTxt;
+    private JTextField TelnoTxt;
+    private JTextField EmailTxt;
+    private JTextField StreetTxt;
+    private JTextField CityTxt;
+    private JTextField StateTxt;
+    private JTextField PostalTxt;
+    private JTextField CountryTxt;
+    private JTextField BirthTxt;
+    private JTextField LanguageTxt;
+    private JTextField OccupTxt;
+    private JTextField EmployerTxt;
+    private JTextField IncomeTxt;
+    private JTextField NationalityTxt;
+    
+    
     private JScrollPane scrollPane;
-    private JTextArea jTextArea1;
-    private JTextField jTextField1;
-    private JTextField jTextField2;
-    private JTextField jTextField3;
-    private JTextField jTextField4;
-    private JTextField jTextField5;
-    private JTextField jTextField6;
-    private JTextField jTextField7;
-    private JTextField jTextField8;
-    private JTextField jTextField9;
-    private JTextField jTextField10;
-    private JTextField jTextField11;
-    private JTextField jTextField12;
-    private JTextField jTextField13;
-    private JTextField jTextField14;
-    private JTextField jTextField15;
-    private JTextField jTextField16;
-    private JTextField jTextField17;
+      
+   
     
     
     private String Pref[] = {"Ms", "Mrs", "Mr"};
@@ -73,309 +70,309 @@ public class Reworkedregform extends JFrame implements ActionListener {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        jLabel1 = new JLabel();
-        jLabel1.setText("BANK ACCOUNT REGISTRATION FORM");
-        jLabel1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        TitleLbl = new JLabel();
+        TitleLbl.setText("BANK ACCOUNT REGISTRATION FORM");
+        TitleLbl.setFont(new Font("Times New Roman", Font.BOLD, 20));
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel1, gbc);
+        con.add(TitleLbl, gbc);
 
 
-        jLabel3 = new JLabel();
-        jLabel3.setText("Name");
-        jLabel3.setFont(new Font("Arial", Font.PLAIN, 12));
+        NameLbl = new JLabel();
+        NameLbl.setText("Name");
+        NameLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel3, gbc);
+        con.add(NameLbl, gbc);
 
-        jComboBox2 = new JComboBox<>(Pref);
-        jComboBox2.setFont(new Font("Arial", Font.PLAIN, 13));
+        PrefixLbl = new JComboBox<>(Pref);
+        PrefixLbl.setFont(new Font("Arial", Font.PLAIN, 13));
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipadx = 10; // Adjust the value to change the width
-        con.add(jComboBox2, gbc);
+        con.add(PrefixLbl, gbc);
 
-        jTextField1 = new JTextField();
-        jTextField1.setText("(First Name)");
-        jTextField1.setFont(new Font("Arial", Font.PLAIN, 13));
+        FnameTxt = new JTextField();
+        FnameTxt.setText("(First Name)");
+        FnameTxt.setFont(new Font("Arial", Font.PLAIN, 13));
         gbc.gridx = 1;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipadx = 100; // Adjust the value to change the width
-        con.add(jTextField1, gbc);
+        con.add(FnameTxt, gbc);
 
-        jTextField2 = new JTextField();
-        jTextField2.setText("(Initials)");
-        jTextField2.setFont(new Font("Arial", Font.PLAIN, 13));
+        InitialsTxt = new JTextField();
+        InitialsTxt.setText("(Initials)");
+        InitialsTxt.setFont(new Font("Arial", Font.PLAIN, 13));
         gbc.gridx = 2;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipadx = 50; // Adjust the value to change the width
-        con.add(jTextField2, gbc);
+        con.add(InitialsTxt, gbc);
         
-        jTextField3 = new JTextField();
-        jTextField3.setText("(Middle Name)");
-        jTextField3.setFont(new Font("Arial", Font.PLAIN,13));
+        MnameTxt = new JTextField();
+        MnameTxt.setText("(Middle Name)");
+        MnameTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipadx = 50;
-        con.add(jTextField3,gbc);
+        con.add(MnameTxt,gbc);
         
-        jTextField4 = new JTextField();
-        jTextField4.setText("(Last Name)");
-        jTextField4.setFont(new Font("Arial", Font.PLAIN,13));
+        LnameTxt = new JTextField();
+        LnameTxt.setText("(Last Name)");
+        LnameTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 1;
         gbc.gridy = 5;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField4,gbc);
+        con.add(LnameTxt,gbc);
         
-        jLabel4 = new JLabel();
-        jLabel4.setText("Telephone");
-        jLabel4.setFont(new Font("Arial", Font.PLAIN, 12));
+        TelnoLbl = new JLabel();
+        TelnoLbl.setText("Telephone");
+        TelnoLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel4,gbc);
+        con.add(TelnoLbl,gbc);
         
-        jLabel5 = new JLabel();
-        jLabel5.setText("E-mail Address");
-        jLabel5.setFont(new Font("Arial", Font.PLAIN, 12));
+        EmailLbl = new JLabel();
+        EmailLbl.setText("E-mail Address");
+        EmailLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 1;
         gbc.gridy = 6;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel5,gbc);
+        con.add(EmailLbl,gbc);
         
-        jTextField5 = new JTextField();
-        jTextField5.setFont(new Font("Arial", Font.PLAIN,13));
+        TelnoTxt = new JTextField();
+        TelnoTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField5,gbc);
+        con.add(TelnoTxt,gbc);
        
-        jTextField6 = new JTextField();
-        jTextField6.setFont(new Font("Arial", Font.PLAIN,13));
+        EmailTxt = new JTextField();
+        EmailTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 1;
         gbc.gridy = 7;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField6,gbc);
+        con.add(EmailTxt,gbc);
         
-        jLabel6 = new JLabel();
-        jLabel6.setText("Mailing Home Address");
-        jLabel6.setFont(new Font("Arial", Font.PLAIN, 12));
+        HomeAddLbl = new JLabel();
+        HomeAddLbl.setText("Mailing Home Address");
+        HomeAddLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel6,gbc);
+        con.add(HomeAddLbl,gbc);
         
-        jTextField7 = new JTextField();
-        jTextField7.setText("(Street Address)");
-        jTextField7.setFont(new Font("Arial", Font.PLAIN,13));
+        StreetTxt = new JTextField();
+        StreetTxt.setText("(Street Address)");
+        StreetTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 9;
         gbc.gridwidth = 2;
         gbc.ipadx = 10;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField7,gbc);
+        con.add(StreetTxt,gbc);
                 
-        jTextField8 = new JTextField();
-        jTextField8.setText("(City)");
-        jTextField8.setFont(new Font("Arial", Font.PLAIN,13));
+        CityTxt = new JTextField();
+        CityTxt.setText("(City)");
+        CityTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 10;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField8,gbc);
+        con.add(CityTxt,gbc);
         
-        jTextField9 = new JTextField();
-        jTextField9.setText("(State)");
-        jTextField9.setFont(new Font("Arial", Font.PLAIN,13));
+        StateTxt = new JTextField();
+        StateTxt.setText("(State)");
+        StateTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 1;
         gbc.gridy = 10;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField9,gbc);
+        con.add(StateTxt,gbc);
         
-        jTextField10 = new JTextField();
-        jTextField10.setText("(Postal/Zip Code)");
-        jTextField10.setFont(new Font("Arial", Font.PLAIN,13));
+        PostalTxt = new JTextField();
+        PostalTxt.setText("(Postal/Zip Code)");
+        PostalTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 11;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField10,gbc);
+        con.add(PostalTxt,gbc);
         
-        jTextField11 = new JTextField();
-        jTextField11.setText("(Country)");
-        jTextField11.setFont(new Font("Arial", Font.PLAIN,13));
+        CountryTxt = new JTextField();
+        CountryTxt.setText("(Country)");
+        CountryTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 1;
         gbc.gridy = 11;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField11,gbc);
+        con.add(CountryTxt,gbc);
         
-        jLabel7 = new JLabel();
-        jLabel7.setText("Date of Birth");
-        jLabel7.setFont(new Font("Arial", Font.PLAIN, 12));
+        BirthLbl = new JLabel();
+        BirthLbl.setText("Date of Birth");
+        BirthLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 12;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel7,gbc);
+        con.add(BirthLbl,gbc);
         
-        jLabel8 = new JLabel();
-        jLabel8.setText("Marital Status");
-        jLabel8.setFont(new Font("Arial", Font.PLAIN, 12));
+        MStatusLbl = new JLabel();
+        MStatusLbl.setText("Marital Status");
+        MStatusLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 1;
         gbc.gridy = 12;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel8,gbc);
+        con.add(MStatusLbl,gbc);
         
-        jTextField12 = new JTextField();
-        jTextField12.setText("(E.g. 02-14-2001)");
-        jTextField12.setFont(new Font("Arial", Font.PLAIN,13));
+        BirthTxt = new JTextField();
+        BirthTxt.setText("(E.g. 02-14-2001)");
+        BirthTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 13;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField12,gbc);
+        con.add(BirthTxt,gbc);
         
-        jComboBox3 = new JComboBox(MStatus);
-        jComboBox3.setFont(new Font("Arial", Font.PLAIN,13));
+        MStatusCB = new JComboBox(MStatus);
+        MStatusCB.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 1;
         gbc.gridy = 13;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jComboBox3,gbc);
+        con.add(MStatusCB,gbc);
         
-        jLabel9 = new JLabel();
-        jLabel9.setText("Language");
-        jLabel9.setFont(new Font("Arial", Font.PLAIN, 12));
+        LanguageLbl = new JLabel();
+        LanguageLbl.setText("Language");
+        LanguageLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 14;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel9,gbc);
+        con.add(LanguageLbl,gbc);
         
-        jLabel10 = new JLabel();
-        jLabel10.setText("Occupation");
-        jLabel10.setFont(new Font("Arial", Font.PLAIN, 12));
+        OccupLbl = new JLabel();
+        OccupLbl.setText("Occupation");
+        OccupLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 1;
         gbc.gridy = 14;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel10,gbc);
+        con.add(OccupLbl,gbc);
         
-        jTextField13 = new JTextField();
-        jTextField13.setFont(new Font("Arial", Font.PLAIN,13));
+        LanguageTxt = new JTextField();
+        LanguageTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 15;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField13,gbc);
+        con.add(LanguageTxt,gbc);
         
-        jTextField14 = new JTextField();
-        jTextField14.setFont(new Font("Arial", Font.PLAIN,13));
+        OccupTxt = new JTextField();
+        OccupTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 1;
         gbc.gridy = 15;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField14,gbc);
+        con.add(OccupTxt,gbc);
         
-        jLabel10 = new JLabel();
-        jLabel10.setText("Employer");
-        jLabel10.setFont(new Font("Arial", Font.PLAIN, 12));
+        EmployerLbl = new JLabel();
+        EmployerLbl.setText("Employer");
+        EmployerLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 16;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel10,gbc);
+        con.add(EmployerLbl,gbc);
         
-        jLabel11 = new JLabel();
-        jLabel11.setText("Monthly Income");
-        jLabel11.setFont(new Font("Arial", Font.PLAIN, 12));
+        IncomeLbl = new JLabel();
+        IncomeLbl.setText("Monthly Income");
+        IncomeLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 18;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel11,gbc);
+        con.add(IncomeLbl,gbc);
         
-        jTextField15 = new JTextField();
-        jTextField15.setText("(Name of company you are working at.)");
-        jTextField15.setFont(new Font("Arial", Font.PLAIN,13));
+        EmployerTxt = new JTextField();
+        EmployerTxt.setText("(Name of company you are working at.)");
+        EmployerTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 17;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField15,gbc);
+        con.add(EmployerTxt,gbc);
         
-        jTextField16 = new JTextField();
-        jTextField16.setFont(new Font("Arial", Font.PLAIN, 13));
+        IncomeTxt = new JTextField();
+        IncomeTxt.setFont(new Font("Arial", Font.PLAIN, 13));
         gbc.gridx = 0;
         gbc.gridy = 19;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField16,gbc);
+        con.add(IncomeTxt,gbc);
         
-        jLabel12 = new JLabel();
-        jLabel12.setText("(Optional)");
-        jLabel12.setFont(new Font("Arial", Font.PLAIN, 11));
+        EmpOptionalLbl = new JLabel();
+        EmpOptionalLbl.setText("(Optional)");
+        EmpOptionalLbl.setFont(new Font("Arial", Font.PLAIN, 11));
         gbc.gridx = 2;
         gbc.gridy = 17;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel12,gbc);
+        con.add(EmpOptionalLbl,gbc);
         
-        jLabel13 = new JLabel();
-        jLabel13.setText("(Optional)");
-        jLabel13.setFont(new Font("Arial", Font.PLAIN, 11));
+        IncOptionalLbl = new JLabel();
+        IncOptionalLbl.setText("(Optional)");
+        IncOptionalLbl.setFont(new Font("Arial", Font.PLAIN, 11));
         gbc.gridx = 1;
         gbc.gridy = 19;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel13,gbc);
+        con.add(IncOptionalLbl,gbc);
         
-        jLabel14 = new JLabel();
-        jLabel14.setText("Nationality");
-        jLabel14.setFont(new Font("Arial", Font.PLAIN, 12));
+        NationalityLbl = new JLabel();
+        NationalityLbl.setText("Nationality");
+        NationalityLbl.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 20;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jLabel14,gbc);
+        con.add(NationalityLbl,gbc);
         
-        jTextField17 = new JTextField();
-        jTextField17.setFont(new Font("Arial", Font.PLAIN,13));
+        NationalityTxt = new JTextField();
+        NationalityTxt.setFont(new Font("Arial", Font.PLAIN,13));
         gbc.gridx = 0;
         gbc.gridy = 21;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jTextField17,gbc);
+        con.add(NationalityTxt,gbc);
         
-        jCheckBox1 = new JCheckBox();
-        jCheckBox1.setText("I agree to the terms of service and conditions.");
-        jCheckBox1.setFont(new Font("Arial", Font.PLAIN, 12));
+        TermsCB = new JCheckBox();
+        TermsCB.setText("I agree to the terms of service and conditions.");
+        TermsCB.setFont(new Font("Arial", Font.PLAIN, 12));
         gbc.gridx = 0;
         gbc.gridy = 22;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        con.add(jCheckBox1,gbc);
+        con.add(TermsCB,gbc);
         
         
         
@@ -398,7 +395,6 @@ public class Reworkedregform extends JFrame implements ActionListener {
         pack();
         setVisible(true);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
