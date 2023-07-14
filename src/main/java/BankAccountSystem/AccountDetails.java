@@ -10,6 +10,8 @@ import java.awt.event.*;
 
 public class AccountDetails  extends JFrame {
     
+    User user = User.getInstance();
+    
     JPanel fieldpanel, mainpanel;
     JLabel lblName, lblAccNo, lblEmail, lblPassword, lblMobileNum, lblCheckBal, lblSaveBal;
     GridBagConstraints c;
@@ -18,26 +20,26 @@ public class AccountDetails  extends JFrame {
     
     User user1 = new User();
     
-    lblName = new JLabel("Name " +user1.getName());
+    lblName = new JLabel("Name " +user.getName());
     lblName.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
-    lblAccNo = new JLabel("Account Number: " +user1.getAccNum());
+    lblAccNo = new JLabel("Account Number: " +user.getAccNum());
     lblAccNo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
-    lblEmail = new JLabel("Email: " +user1.getEmail());
+    lblEmail = new JLabel("Email: " +user.getEmail());
     lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
-    lblPassword = new JLabel("Password: " +user1.getPassword());
+    lblPassword = new JLabel("Password: " +user.getPassword());
     lblPassword.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
     
-    lblMobileNum = new JLabel("Mobile Number: " +user1.getMobileNum());
+    lblMobileNum = new JLabel("Mobile Number: " +user.getMobileNum());
     lblMobileNum.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
-    lblCheckBal = new JLabel("Checking Account Balance: " +user1.GetCheckingBalance());
+    lblCheckBal = new JLabel("Checking Account Balance: " +user.getCheckingBalance());
     lblCheckBal.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
-    lblSaveBal = new JLabel("Savings Account Balance: " +user1.GetSavingsBalance());
+    lblSaveBal = new JLabel("Savings Account Balance: " +user.getSavingsBalance());
     lblSaveBal.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
     fieldpanel = new JPanel();

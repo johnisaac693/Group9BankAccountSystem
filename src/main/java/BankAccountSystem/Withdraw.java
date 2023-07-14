@@ -2,11 +2,14 @@
 package BankAccountSystem;
 
 import javax.swing.*;
+import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.prefs.Preferences;
 
-public class Withdraw {
+public class Withdraw implements ActionListener{
     
+    User user = User.getInstance();
     //Component Declaration
     JFrame f = new JFrame("Withdraw");
     JPanel pnlSaving, pnlChecking, pnlMainPanel;
@@ -19,13 +22,13 @@ public class Withdraw {
     
     
     //Savings Panel Component Initialization/////////////////////////
-    User user1 = new User();
+     
     
     JLabel lblBalanceTell = new JLabel("Your Balance Is:");
     lblBalanceTell.setAlignmentX(Component.RIGHT_ALIGNMENT);
     lblBalanceTell.setFont(new Font("Segoe UI", Font.BOLD, 12));
     
-    JLabel lblBalanceGetSavings = new JLabel(+user1.GetSavingsBalance()+" php");
+    JLabel lblBalanceGetSavings = new JLabel(+user.getSavingsBalance()+" php");
     lblBalanceGetSavings.setFont(new Font("Segoe UI", Font.BOLD, 12));
     
     JLabel lblEnterPrompt = new JLabel("Enter your amount here: ");
@@ -34,6 +37,7 @@ public class Withdraw {
     btnConfirmSavings = new JButton("Confirm Withdrawal");
     btnConfirmSavings.setFont(new Font("Segoe UI", Font.BOLD, 12));
     btnConfirmSavings.setBackground(Color.white);
+    btnConfirmSavings.addActionListener(this);
     
     txtSaving = new JTextField(20);
     //Savings Panel Panel Setting
@@ -68,7 +72,7 @@ public class Withdraw {
     lblBalanceTellCheck.setFont(new Font("Segoe UI", Font.BOLD, 12));
  
     
-    JLabel lblBalanceGetChecking = new JLabel(+user1.GetCheckingBalance()+" php");
+    JLabel lblBalanceGetChecking = new JLabel(+user.getCheckingBalance()+" php");
     lblBalanceGetChecking.setFont(new Font("Segoe UI", Font.BOLD, 12));
     
     JLabel lblEnterPromptChecking = new JLabel("Enter your amount here: ");
@@ -77,6 +81,7 @@ public class Withdraw {
     btnConfirmChecking = new JButton("Confirm Withdrawal");
     btnConfirmChecking.setFont(new Font("Segoe UI", Font.BOLD, 12));
     btnConfirmChecking.setBackground(Color.white);
+    btnConfirmChecking.addActionListener(this);
     
     txtChecking = new JTextField(20);
     //Checking Panel Panel Setting
@@ -136,6 +141,25 @@ public class Withdraw {
         int x = (int) ((currentScreen.getWidth() - f.getWidth()) / 2);
         int y = (int) ((currentScreen.getHeight() - f.getHeight()) / 2);
         f.setLocation(x, y);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnConfirmSavings)
+        {
+            String savingwithdraw = txtSaving.getText();
+            float savingminus = Float.parseFloat(savingwithdraw);
+            user.subtractSavings(savingminus);
+            showMessageDialog(null, "You have withdrawn "+ savingminus + " from your Savings Account!");
+        }
+        
+        if (e.getSource() == btnConfirmChecking)
+        {
+            String checkingwithdraw = txtChecking.getText();
+            float checkingminus = Float.parseFloat(checkingwithdraw);
+            user.subtractChecking(checkingminus);
+            showMessageDialog(null, "You have withdrawn "+ checkingminus + " from your Checking Account!");
+        }
     }
      
      

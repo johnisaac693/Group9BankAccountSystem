@@ -35,6 +35,7 @@ public class MainMenu extends JFrame implements ActionListener {
         btnTransacHistory.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         btnTransacHistory.setBounds(128, 178, 178, 23);
         btnTransacHistory.setBackground(Color.WHITE);
+        btnTransacHistory.addActionListener(this);
 
         btnLogout = new JButton("Log Out");
         btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -73,6 +74,11 @@ public class MainMenu extends JFrame implements ActionListener {
         else if(e.getSource() == btnAccdetails) {
             new AccountDetails();
         }
+        else if(e.getSource() == btnTransacHistory) {
+            new TransactionHistoryTrial2();
+        }
+        
+  
     }
     
     public void centerFrame() {
