@@ -5,7 +5,7 @@ public class Main {
        //new ATMWelcomePage();
        //new MainMenu();
 
-       new Reworkedregform();
+       new ATMWelcomePage();
 
        //new BankTransferTransaction();
        //new TransactionHistoryTrial2();

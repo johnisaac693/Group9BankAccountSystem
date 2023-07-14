@@ -97,10 +97,11 @@ public class User {
         CheckingBalance += x;
     }
     
-     public boolean comparelogin (String phonenumber, String passphrase){
-        return (phonenumber == mobilenum && passphrase == password);
+    public boolean comparelogin(String phonenumber, String passphrase) {
+        return password.equals(passphrase) && mobilenum.equals(phonenumber);
+}
+         
     }
     
     
    
-}
