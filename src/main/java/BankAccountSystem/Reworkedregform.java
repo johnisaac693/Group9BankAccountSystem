@@ -120,15 +120,28 @@ public class Reworkedregform implements ActionListener{
             String address = addressField.getText();
             String mobilenumber = mobileField.getText();
             
+            int namelen = name.length();
+            int emaillen = email.length();
+            int passlen = password.length();
+            int addlen = address.length();
+            int numlen = mobilenumber.length();
+            
             user.setName(name);
             user.setEmail(email);
             user.setPassword(password);
             user.setAddress(address);
             user.setMobileNum(mobilenumber);
             
-            showMessageDialog(null, "Welcome," + user.getName() + "to our bank!");
+            if (namelen == 0 || emaillen == 0 || passlen==0 || addlen == 0 || numlen == 0) {
+                JOptionPane.showMessageDialog(null, "Please fill out ALL the fields!");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Welcome, " + user.getName() + " to our bank!");
             frame.dispose();
             new BankAccountLogin();
+            }
+            
             
             
         }
