@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Reworkedregform implements ActionListener{
@@ -112,38 +116,52 @@ public class Reworkedregform implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnRegister) {
-             User user = User.getInstance();
-             
+            User user = User.getInstance();
             String name = nameField.getText();
             String email = emailField.getText();
             String password = passwordField.getText();
             String address = addressField.getText();
             String mobilenumber = mobileField.getText();
-            
+
             int namelen = name.length();
             int emaillen = email.length();
             int passlen = password.length();
             int addlen = address.length();
             int numlen = mobilenumber.length();
-            
+
             user.setName(name);
             user.setEmail(email);
             user.setPassword(password);
             user.setAddress(address);
             user.setMobileNum(mobilenumber);
-            
-            if (namelen == 0 || emaillen == 0 || passlen==0 || addlen == 0 || numlen == 0) {
+
+            if (namelen == 0 || emaillen == 0 || passlen == 0 || addlen == 0 || numlen == 0) {
                 JOptionPane.showMessageDialog(null, "Please fill out ALL the fields!");
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(null, "Welcome, " + user.getName() + " to our bank!");
-            frame.dispose();
-            new BankAccountLogin();
+                frame.dispose();
+                new BankAccountLogin();
+
+                // Database connection and insertion
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+                   
+
+                    String query = "INSERT INTO customerinfo (customerName, customerEmail, customerPass, customerAdd, customerNum) VALUES (?,?,?,?,?)";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                    preparedStatement.setString(1, name);
+                    preparedStatement.setString(2, email);
+                    preparedStatement.setString(3, password);
+                    preparedStatement.setString(4, address);
+                    preparedStatement.setString(5, mobilenumber);
+
+                    preparedStatement.executeUpdate();
+             
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
-            
-            
-            
         }
     }
 }
