@@ -10,65 +10,83 @@ import java.awt.event.*;
 public class MainMenu extends JFrame implements ActionListener {
 
     private JButton btnTransaction, btnTransacHistory, btnAccdetails, btnLogout;
-    private JLabel lblMainMenu;
+    
+    JPanel fieldpanel, mainPanel;
+    GridBagConstraints c;
 
     public MainMenu() {
 
-        lblMainMenu = new JLabel("Banking System Main Menu");
-        lblMainMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        lblMainMenu.setBounds(18, 30, 400, 55);
-        lblMainMenu.setHorizontalAlignment(JLabel.CENTER);
-
         btnTransaction = new JButton("Make Transaction");
         btnTransaction.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        btnTransaction.setBounds(150, 98, 130, 23);
         btnTransaction.setBackground(Color.WHITE);
         btnTransaction.addActionListener(this);
 
         btnAccdetails = new JButton("Account Details");
         btnAccdetails.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        btnAccdetails.setBounds(143, 138, 141, 23);
         btnAccdetails.setBackground(Color.WHITE);
         btnAccdetails.addActionListener(this);
 
         btnTransacHistory = new JButton("Check Transaction History");
         btnTransacHistory.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        btnTransacHistory.setBounds(128, 178, 178, 23);
         btnTransacHistory.setBackground(Color.WHITE);
         btnTransacHistory.addActionListener(this);
 
         btnLogout = new JButton("Log Out");
         btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        btnLogout.setBounds(177, 218, 80, 23);
         btnLogout.setBackground(Color.WHITE);
-
-        // panel
-        JPanel panel = new JPanel();
-
-        panel.setBounds(44, 0, 412, 300);
-        panel.setLayout(null);
-        panel.add(lblMainMenu);
-        panel.add(btnTransaction);
-        panel.add(btnTransacHistory);
-        panel.add(btnAccdetails);
-        panel.add(btnLogout);
+         //Field Panel Setting
+         fieldpanel = new JPanel();
+         fieldpanel.setLayout(new GridBagLayout());
+         fieldpanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        //Setting Component Positioning
+        
+         c.gridx = 0;
+        c.gridy = 0;
+        c.insets = new Insets(10,0,0,0);
+        fieldpanel.add(btnTransaction, c);
+        
+        c.gridx = 0;
+        c.gridy = 2;
+        c.insets = new Insets(10,0,0,0);
+        fieldpanel.add(btnTransacHistory, c);
+        
+        c.gridx = 0;
+        c.gridy = 4;
+        c.insets = new Insets(10,0,0,0);
+        fieldpanel.add(btnAccdetails, c);
+        
+        c.gridx = 0;
+        c.gridy = 6;
+        c.insets = new Insets(10,0,0,0);
+        fieldpanel.add(btnLogout, c);
+        
+        
+        //MainPanel Setting
+        mainPanel = new JPanel();
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(10,50,15,50));
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        JLabel lblMainMenu = new JLabel("MAIN MENU");
+        lblMainMenu.setFont(new Font("Segoe UI", Font.BOLD, 25));
+        lblMainMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(lblMainMenu);
+        mainPanel.add(fieldpanel);
 
         // Window
-        setTitle("Banking System Main Menu");
-        setLocationRelativeTo(null);
-        setSize(509, 300);
+        setContentPane(mainPanel);
+        pack();
+        centerFrame();
         setVisible(true);
         setResizable(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setBackground(Color.LIGHT_GRAY);
-        setLayout(null);
-        setContentPane(panel);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         centerFrame();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnTransaction) {
+            dispose();
             new TransactionMenu();
         }
         else if(e.getSource() == btnAccdetails) {

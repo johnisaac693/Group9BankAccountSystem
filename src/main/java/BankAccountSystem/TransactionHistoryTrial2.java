@@ -41,7 +41,7 @@ public class TransactionHistoryTrial2 extends JFrame {
         centerFrame();
         setVisible(true);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         // Sample Transaction
         addTransaction(new Date(), "Deposit", 100.0);

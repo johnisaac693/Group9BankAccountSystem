@@ -113,12 +113,13 @@ public class Reworkedregform implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnRegister) {
              User user = User.getInstance();
-             
+             RandomAccountNumberGenerator bankno = new RandomAccountNumberGenerator();
             String name = nameField.getText();
             String email = emailField.getText();
             String password = passwordField.getText();
             String address = addressField.getText();
             String mobilenumber = mobileField.getText();
+           
             
             int namelen = name.length();
             int emaillen = email.length();
@@ -131,6 +132,9 @@ public class Reworkedregform implements ActionListener{
             user.setPassword(password);
             user.setAddress(address);
             user.setMobileNum(mobilenumber);
+            
+            String accountnumber = bankno.generateAccountNumber();
+            user.setAccNumber(accountnumber);
             
             if (namelen == 0 || emaillen == 0 || passlen==0 || addlen == 0 || numlen == 0) {
                 JOptionPane.showMessageDialog(null, "Please fill out ALL the fields!");
