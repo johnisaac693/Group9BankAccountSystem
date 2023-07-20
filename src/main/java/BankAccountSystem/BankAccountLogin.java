@@ -72,5 +72,9 @@ public class BankAccountLogin implements ActionListener{
              showMessageDialog(null, "Your number or password is incorrect!");
             
         }
+        
+        else if (e.getSource() == btnLogin) {
+            new ForgotPassword();
+        }
     }
 }
