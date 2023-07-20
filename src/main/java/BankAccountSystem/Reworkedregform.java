@@ -82,13 +82,15 @@ public class Reworkedregform implements ActionListener{
         mainPanel = new JPanel();
         mainPanel.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        Font font = new Font("MS Sans Serif", Font.BOLD, 18);
+        Font font = new Font("Segoe UI", Font.BOLD, 18);
         lblregister = new JLabel("Register your Bank Account!");
         lblregister.setFont(font);
         lblregister.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnRegister = new JButton("Create Account");
         btnRegister.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnRegister.addActionListener(this);
+        btnRegister.setBackground(Color.white);
+        btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 12));
         mainPanel.add(lblregister);
         mainPanel.add(fieldPanel);
         mainPanel.add(btnRegister);
