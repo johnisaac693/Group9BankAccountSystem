@@ -5,6 +5,12 @@ import javax.swing.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.*;
 import java.awt.event.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.prefs.Preferences;
 
 public class Withdraw implements ActionListener{
@@ -145,13 +151,15 @@ public class Withdraw implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnConfirmSavings)
-        {
-            String savingwithdraw = txtSaving.getText();
-            float savingminus = Float.parseFloat(savingwithdraw);
-            user.subtractSavings(savingminus);
-            showMessageDialog(null, "You have withdrawn "+ savingminus + " from your Savings Account!");
-        }
+
+         if (e.getSource() == btnConfirmSavings) {
+        String savingwithdraw = txtSaving.getText();
+        float savingminus = Float.parseFloat(savingwithdraw);
+        user.subtractSavings(savingminus);
+        showMessageDialog(null, "You have withdrawn " + savingminus + " from your Savings Account!");
+        
+        saveTransaction(new Date(), "Deposit", savingminus);
+    }
         
         if (e.getSource() == btnConfirmChecking)
         {
@@ -159,8 +167,26 @@ public class Withdraw implements ActionListener{
             float checkingminus = Float.parseFloat(checkingwithdraw);
             user.subtractChecking(checkingminus);
             showMessageDialog(null, "You have withdrawn "+ checkingminus + " from your Checking Account!");
+
+            
+            saveTransaction(new Date(), "Deposit", checkingminus);
         }
     }
+    
+    private void saveTransaction(Date datetransact, String typetransact, double amounttransact) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+        String query = "INSERT INTO transactions (datetransact, typetransact, amounttransact) VALUES (?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setDate(1, new java.sql.Date(datetransact.getTime()));
+        preparedStatement.setString(2, typetransact);
+        preparedStatement.setDouble(3, amounttransact);
+        preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error saving transaction!");
+    }
+
      
      
+}
 }

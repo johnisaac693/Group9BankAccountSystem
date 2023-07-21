@@ -3,17 +3,21 @@ package BankAccountSystem;
 import java.util.*;
 
 public class User {
+
+
     private static User instance;
 
-    private String Name = "Isaac";
-    private String AccNum = "12345";
-    private String email = "email";
-    private String password = "password";
-    private String mobilenum = "12345";
-    private float CheckingBalance;
-    private float SavingsBalance;
+    private String Name;
+    private String AccNum;
+    private String email;
+    private String password;
+    private String mobilenum;
+    private String address;
+    private double CheckingBalance;
+    private double SavingsBalance;
 
-   
+  
+
 
     public static User getInstance() {
         if (instance == null) {
@@ -42,14 +46,53 @@ public class User {
         return mobilenum;
     }
 
-    public float getCheckingBalance() {
+
+    public double getCheckingBalance() {
         return CheckingBalance;
     }
 
-    public float getSavingsBalance() {
+    public double getSavingsBalance() {
         return SavingsBalance;
     }
 
+    
+    public void setCheckingBalance(double checkingBalance) {
+        this.CheckingBalance = checkingBalance;
+    }
+
+    public void setSavingsBalance(double savingsBalance) {
+        this.SavingsBalance = savingsBalance;
+    }
+    
+    // SETTER
+    
+     public void setName(String nameset) {
+        Name = nameset;
+    }
+
+    public void setEmail(String emailset) {
+        email = emailset;
+    }
+
+    public void setPassword(String passwordString) {
+        password = passwordString;
+    }
+
+    public void setMobileNum(String mobileString) {
+        mobilenum = mobileString;
+    }
+    
+    public void setAddress (String addressString){
+    
+        address = addressString;
+    }
+    
+    public void setAccNumber(String accString){
+        AccNum = accString;
+    }
+
+  
+    //BANK FUNCTIONS
     public void subtractSavings(float x) {
         SavingsBalance -= x;
     }
@@ -65,4 +108,18 @@ public class User {
     public void addChecking(float x) {
         CheckingBalance += x;
     }
+
+    
+    public boolean comparelogin(String phonenumber, String passphrase) {
+        return password.equals(passphrase) && mobilenum.equals(phonenumber);
 }
+}
+
+    
+    
+    
+         
+    
+    
+    
+   

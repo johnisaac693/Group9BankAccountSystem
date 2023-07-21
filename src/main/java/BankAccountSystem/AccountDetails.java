@@ -18,7 +18,6 @@ public class AccountDetails  extends JFrame {
     public AccountDetails(){
     //fieldpanel and comps
     
-    User user1 = new User();
     
     lblName = new JLabel("Name " +user.getName());
     lblName.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -59,22 +58,18 @@ public class AccountDetails  extends JFrame {
     
     c.gridx = 0;
     c.gridy = 2;
-    fieldpanel.add(lblEmail, c);
-    
-    c.gridx = 0;
-    c.gridy = 3;
     fieldpanel.add(lblPassword, c);
     
     c.gridx = 0;
-    c.gridy = 4;
+    c.gridy = 3;
     fieldpanel.add(lblMobileNum, c);
     
     c.gridx = 0;
-    c.gridy = 5;
+    c.gridy = 4;
     fieldpanel.add(lblCheckBal, c);
     
     c.gridx = 0;
-    c.gridy = 6;
+    c.gridy = 5;
     fieldpanel.add(lblSaveBal, c);
     
     //MainPanel and Comps

@@ -12,7 +12,7 @@ import java.awt.event.*;
 public class TransactionMenu implements ActionListener{
     JFrame f = new JFrame("Transaction Menu");
     JPanel fieldpanel, mainPanel;
-    JButton btnWithdraw, btnDeposit, btnBankTrans;
+    JButton btnWithdraw, btnDeposit, btnBankTrans, btnBack;
     GridBagConstraints c;
     public TransactionMenu()
     {
@@ -34,6 +34,11 @@ public class TransactionMenu implements ActionListener{
         btnBankTrans.setBackground(Color.white);
         btnBankTrans.setFont(new Font("Segoe UI", Font.BOLD, 12));
         btnBankTrans.addActionListener(this);
+        
+        btnBack = new JButton("Back");
+        btnBack.setBackground(Color.white);
+        btnBack.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnBack.addActionListener(this);
         
         
         fieldpanel = new JPanel();
@@ -58,6 +63,13 @@ public class TransactionMenu implements ActionListener{
         c.insets = new Insets(10,0,0,0);
         fieldpanel.add(btnBankTrans, c);
         
+        c.gridx = 0;
+        c.gridy = 6;
+        c.insets = new Insets(10,0,0,0);
+        fieldpanel.add(btnBack, c);
+        
+        
+        
         
         //mainpanel and components
         mainPanel = new JPanel();
@@ -75,7 +87,7 @@ public class TransactionMenu implements ActionListener{
         centerFrame();
         f.setVisible(true);
         f.setResizable(false);
-        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        
     }
     
@@ -94,6 +106,11 @@ public class TransactionMenu implements ActionListener{
       else if (e.getSource() == btnBankTrans)
       {
           new BankTransferTransaction();
+      }
+      else if (e.getSource() == btnBack)
+      {  
+          f.dispose();
+          new MainMenu();
       }
     }
     
