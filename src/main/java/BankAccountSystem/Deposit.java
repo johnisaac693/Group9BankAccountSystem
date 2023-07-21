@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Deposit implements ActionListener{
@@ -163,6 +164,7 @@ public class Deposit implements ActionListener{
             // Update the savings balance in the database
             updateSavingsBalance(user.getSavingsBalance());
         }  
+
         
         if (e.getSource() == btnConfirmChecking)
         {
@@ -178,8 +180,6 @@ public class Deposit implements ActionListener{
              updateCheckingBalance(user.getCheckingBalance());
            
         }
-        
-   
      
      
 }

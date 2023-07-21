@@ -5,6 +5,7 @@ import javax.swing.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.*;
 import java.awt.event.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -150,6 +151,7 @@ public class Withdraw implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
          if (e.getSource() == btnConfirmSavings) {
         String savingwithdraw = txtSaving.getText();
         float savingminus = Float.parseFloat(savingwithdraw);
@@ -165,6 +167,7 @@ public class Withdraw implements ActionListener{
             float checkingminus = Float.parseFloat(checkingwithdraw);
             user.subtractChecking(checkingminus);
             showMessageDialog(null, "You have withdrawn "+ checkingminus + " from your Checking Account!");
+
             
             saveTransaction(new Date(), "Deposit", checkingminus);
         }
@@ -182,6 +185,7 @@ public class Withdraw implements ActionListener{
         ex.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error saving transaction!");
     }
+
      
      
 }

@@ -4,6 +4,7 @@ import java.util.*;
 
 public class User {
 
+
     private static User instance;
 
     private String Name;
@@ -16,6 +17,7 @@ public class User {
     private double SavingsBalance;
 
   
+
 
     public static User getInstance() {
         if (instance == null) {
@@ -43,6 +45,7 @@ public class User {
     public String getMobileNum() {
         return mobilenum;
     }
+
 
     public double getCheckingBalance() {
         return CheckingBalance;
@@ -105,6 +108,7 @@ public class User {
     public void addChecking(float x) {
         CheckingBalance += x;
     }
+
     
     public boolean comparelogin(String phonenumber, String passphrase) {
         return password.equals(passphrase) && mobilenum.equals(phonenumber);
