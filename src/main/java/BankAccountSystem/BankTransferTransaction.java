@@ -7,6 +7,11 @@ package BankAccountSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import static javax.swing.JOptionPane.showMessageDialog;
 /**
  *
@@ -127,6 +132,7 @@ public class BankTransferTransaction extends JFrame implements ActionListener{
         BankTLabel = new JLabel("Bank Transfer");
         BankTLabel.setFont(font);
         BankTLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
         ConfirmBtn = new JButton("Confirm");
         ConfirmBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         ConfirmBtn.addActionListener(this);
@@ -153,18 +159,53 @@ public class BankTransferTransaction extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if (e.getSource() == ConfirmBtn)
-        {
-            String amounttransfer = AmountTxt.getText();
-            String recipientname = RNameTxt.getText();
-            float checkingtransfer = Float.parseFloat(amounttransfer);
-            user.subtractChecking(checkingtransfer);
-             showMessageDialog(null, "You have deposited "+ checkingtransfer + " to " + recipientname + " from your Checking Account!");
-            
-           
-        }
-    }
+        if (e.getSource() == ConfirmBtn) {
+            String recipientBankNum = RBankNumTxt.getText();
+            String amountTransfer = AmountTxt.getText();
+            String recipientName = RNameTxt.getText();
+            String purpose = PurposeTxt.getText();
+            String notes = NotesTxt.getText();
+
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+                // Retrieve recipient information based on the provided bank number
+                String recipientQuery = "SELECT * FROM customerinfo WHERE customerAccNum = ?";
+                PreparedStatement recipientStatement = connection.prepareStatement(recipientQuery);
+                recipientStatement.setString(1, recipientBankNum);
+                ResultSet recipientResult = recipientStatement.executeQuery();
+
+                if (recipientResult.next()) {
+                    String recipientAccNum = recipientResult.getString("customerAccNum");
+                    double recipientCheckingBalance = recipientResult.getDouble("checkingBalance");
+
+                    // Perform money transfer
+                    double transferAmount = Double.parseDouble(amountTransfer);
+                    double userCheckingBalance = user.getCheckingBalance();
+
+                    if (transferAmount <= userCheckingBalance) {
+                        // Update sender's (user) checking balance
+                        user.subtractChecking((float) transferAmount);
+
+                        // Update recipient's checking balance
+                        recipientCheckingBalance += transferAmount;
+                        String updateRecipientBalanceQuery = "UPDATE customerinfo SET checkingBalance = ? WHERE customerAccNum = ?";
+                        PreparedStatement updateRecipientBalanceStatement = connection.prepareStatement(updateRecipientBalanceQuery);
+                        updateRecipientBalanceStatement.setDouble(1, recipientCheckingBalance);
+                        updateRecipientBalanceStatement.setString(2, recipientAccNum);
+                        updateRecipientBalanceStatement.executeUpdate();
+
+                        showMessageDialog(null, "You have transferred " + transferAmount + " to " + recipientName + " (" + recipientAccNum + ") from your Checking Account!");
+                    } else {
+                        showMessageDialog(null, "Insufficient balance in your Checking Account!");
+                    }
+                } else {
+                    showMessageDialog(null, "Recipient account not found!");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
        
    
     
+}
+    }
 }

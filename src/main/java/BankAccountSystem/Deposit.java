@@ -4,6 +4,12 @@ package BankAccountSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Deposit implements ActionListener{
@@ -144,21 +150,82 @@ public class Deposit implements ActionListener{
 
    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnConfirmSavings)
+        if (e.getSource() == btnConfirmSavings) 
         {
             String savingdeposit = txtSaving.getText();
             float savingadd = Float.parseFloat(savingdeposit);
-            user.addSavings(savingadd); showMessageDialog(null, "You have deposited "+ savingadd + " to your Savings Account!");
-        }
+            user.addSavings(savingadd);
+            showMessageDialog(null, "You have deposited " + savingadd + " to your Savings Account!");
+        
+             // Save the deposit transaction to the database for savings account
+            saveTransaction(new Date(), "Deposit", savingadd);
+            
+            // Update the savings balance in the database
+            updateSavingsBalance(user.getSavingsBalance());
+        }  
         
         if (e.getSource() == btnConfirmChecking)
         {
             String checkingdeposit = txtChecking.getText();
             float checkingadd = Float.parseFloat(checkingdeposit);
             user.addChecking(checkingadd);
-             showMessageDialog(null, "You have deposited "+ checkingadd + " to your Checking Account!");
+            showMessageDialog(null, "You have deposited "+ checkingadd + " to your Checking Account!");
+            
+             // Save the deposit transaction to the database for checkings account
+            saveTransaction(new Date(), "Deposit", checkingadd);
+            
+             // Update the checking balance in the database
+             updateCheckingBalance(user.getCheckingBalance());
+           
         }
-    }
+        
+   
      
      
 }
+    
+    
+    
+    
+    private void saveTransaction(Date datetransact, String typetransact, double amounttransact) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+        String query = "INSERT INTO transactions (accountNumber, datetransact, typetransact, amounttransact) VALUES (?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, user.getAccNum());
+        preparedStatement.setTimestamp(2, new Timestamp(datetransact.getTime()));
+        preparedStatement.setString(3, typetransact);
+        preparedStatement.setDouble(4, amounttransact);
+        preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error saving transaction!");
+    }
+    }
+   
+    private void updateSavingsBalance(double newBalance) {
+    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+        String query = "UPDATE customerinfo SET savingsBalance = ? WHERE customerAccNum = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setDouble(1, newBalance);
+        preparedStatement.setString(2, user.getAccNum());
+        preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error updating savings balance!");
+    }
+    }
+    
+    private void updateCheckingBalance(double newBalance) {
+    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12"))  {
+        String query = "UPDATE customerinfo SET checkingBalance = ? WHERE customerAccNum = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setDouble(1, newBalance);
+        preparedStatement.setString(2, user.getAccNum());
+        preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error updating checking balance!");
+    }
+}
+}
+

@@ -34,6 +34,7 @@ public class MainMenu extends JFrame implements ActionListener {
         btnLogout = new JButton("Log Out");
         btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         btnLogout.setBackground(Color.WHITE);
+        btnLogout.addActionListener(this);
          //Field Panel Setting
          fieldpanel = new JPanel();
          fieldpanel.setLayout(new GridBagLayout());
@@ -94,6 +95,9 @@ public class MainMenu extends JFrame implements ActionListener {
         }
         else if(e.getSource() == btnTransacHistory) {
             new TransactionHistoryTrial2();
+        }
+        else if (e.getSource()==btnLogout){
+            new ATMWelcomePage();
         }
         
   

@@ -3,6 +3,7 @@ package BankAccountSystem;
 import java.util.*;
 
 public class User {
+
     private static User instance;
 
     private String Name;
@@ -11,10 +12,10 @@ public class User {
     private String password;
     private String mobilenum;
     private String address;
-    private float CheckingBalance;
-    private float SavingsBalance;
+    private double CheckingBalance;
+    private double SavingsBalance;
 
-   
+  
 
     public static User getInstance() {
         if (instance == null) {
@@ -43,14 +44,22 @@ public class User {
         return mobilenum;
     }
 
-    public float getCheckingBalance() {
+    public double getCheckingBalance() {
         return CheckingBalance;
     }
 
-    public float getSavingsBalance() {
+    public double getSavingsBalance() {
         return SavingsBalance;
     }
 
+    
+    public void setCheckingBalance(double checkingBalance) {
+        this.CheckingBalance = checkingBalance;
+    }
+
+    public void setSavingsBalance(double savingsBalance) {
+        this.SavingsBalance = savingsBalance;
+    }
     
     // SETTER
     
@@ -100,8 +109,13 @@ public class User {
     public boolean comparelogin(String phonenumber, String passphrase) {
         return password.equals(passphrase) && mobilenum.equals(phonenumber);
 }
+}
+
+    
+    
+    
          
-    }
+    
     
     
    

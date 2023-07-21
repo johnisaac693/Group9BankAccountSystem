@@ -5,6 +5,11 @@
 package BankAccountSystem;
 
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +23,7 @@ public class TransactionHistoryTrial2 extends JFrame {
 
     private String[] columnNames = {"Date", "Type of Transaction", "Amount"};
 
+    User user = User.getInstance();
     public TransactionHistoryTrial2() {
 
         setTitle("Transaction History");
@@ -44,8 +50,30 @@ public class TransactionHistoryTrial2 extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         // Sample Transaction
-        addTransaction(new Date(), "Deposit", 100.0);
-        addTransaction(new Date(), "Withdrawal", -50.0);
+        //addTransaction(new Date(), "Deposit", 100.0);
+        //addTransaction(new Date(), "Withdrawal", -50.0);
+        
+        GetTransactionHistory();
+    }
+    
+    private void GetTransactionHistory() {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+            String query = "SELECT * FROM transactions WHERE accountNumber = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getAccNum());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Date date = resultSet.getDate("datetransact");
+                String type = resultSet.getString("typetransact");
+                double amount = resultSet.getDouble("amounttransact");
+
+                addTransaction(date, type, amount);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error fetching transaction history!");
+        }
     }
 
     public void centerFrame() {
@@ -61,6 +89,14 @@ public class TransactionHistoryTrial2 extends JFrame {
         Object[] rowData = {dateString, transaction, amount};
         model.addRow(rowData);
     }
+    
+//    public void addWithdrawal(Date date, double amount) {
+//    addTransaction(date, "Withdrawal", -amount);
+//}
+//
+//public void addDeposit(Date date, double amount) {
+//    addTransaction(date, "Deposit", amount);
+//}
 
 
 }

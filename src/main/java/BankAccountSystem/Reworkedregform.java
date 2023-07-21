@@ -7,6 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Reworkedregform implements ActionListener{
@@ -14,7 +20,8 @@ public class Reworkedregform implements ActionListener{
     JFrame frame;
     JPanel phonePanel, fieldPanel, mainPanel;
     JLabel lblname, lblemail, lblpassword, lbladdress, lblmobile, lblregister;
-    JTextField nameField, emailField, passwordField, addressField, mobileField, countryCode;
+    JPasswordField passwordField;
+    JTextField nameField, emailField,  addressField, mobileField, countryCode;
     JButton btnRegister;
     GridBagConstraints c;
 
@@ -45,7 +52,7 @@ public class Reworkedregform implements ActionListener{
         lblmobile = new JLabel("Mobile Number: ");
         nameField = new JTextField(15);
         emailField = new JTextField(15);
-        passwordField = new JTextField(15);
+        passwordField = new JPasswordField(15);
         addressField = new JTextField(20);
         c.gridx=0;
         c.gridy=0;
@@ -91,6 +98,7 @@ public class Reworkedregform implements ActionListener{
         btnRegister.addActionListener(this);
         btnRegister.setBackground(Color.white);
         btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        
         mainPanel.add(lblregister);
         mainPanel.add(fieldPanel);
         mainPanel.add(btnRegister);
@@ -115,7 +123,7 @@ public class Reworkedregform implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnRegister) {
              User user = User.getInstance();
-             RandomAccountNumberGenerator bankno = new RandomAccountNumberGenerator();
+           RandomAccountNumberGenerator bankno = new RandomAccountNumberGenerator();
             String name = nameField.getText();
             String email = emailField.getText();
             String password = passwordField.getText();
@@ -138,18 +146,56 @@ public class Reworkedregform implements ActionListener{
             String accountnumber = bankno.generateAccountNumber();
             user.setAccNumber(accountnumber);
             
-            if (namelen == 0 || emaillen == 0 || passlen==0 || addlen == 0 || numlen == 0) {
+           if (namelen == 0 || emaillen == 0 || passlen == 0 || addlen == 0 || numlen == 0) {
+
                 JOptionPane.showMessageDialog(null, "Please fill out ALL the fields!");
-            }
-            else
+
+            } 
+           else 
             {
+
+                // Database connection and insertion
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+                 // Check if the email or Mobile number already exists in the database
+                String checkQuery = "SELECT COUNT(*) AS count FROM customerinfo WHERE customerEmail = ? OR customerNum = ?";
+                PreparedStatement prepStatement = connection.prepareStatement(checkQuery);
+                
+                prepStatement.setString(1, email);
+                prepStatement.setString(2, mobilenumber);
+                
+                ResultSet checkResult = prepStatement.executeQuery();
+                checkResult.next();
+                int count = checkResult.getInt("count");
+
+                if (count > 0) {
+                JOptionPane.showMessageDialog(null, "An account with this email or mobile number already exists. Please use a different email.");
+                } 
+                
+                else 
+                {
+                // Proceed with the insertion
+                String insertQuery = "INSERT INTO customerinfo (customerName, customerEmail, customerPass, customerAdd, customerNum, customerAccNum) VALUES (?,?,?,?,?,?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, email);
+                preparedStatement.setString(3, password);
+                preparedStatement.setString(4, address);
+                preparedStatement.setString(5, mobilenumber);
+                preparedStatement.setString(6, accountnumber);
+                preparedStatement.executeUpdate();
+
                 JOptionPane.showMessageDialog(null, "Welcome, " + user.getName() + " to our bank!");
-            frame.dispose();
-            new BankAccountLogin();
-            }
-            
-            
-            
+                frame.dispose();
+                new BankAccountLogin();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                }
+
         }
+
     }
+
+}
 }

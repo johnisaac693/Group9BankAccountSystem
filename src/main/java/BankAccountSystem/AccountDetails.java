@@ -18,7 +18,6 @@ public class AccountDetails  extends JFrame {
     public AccountDetails(){
     //fieldpanel and comps
     
-    User user1 = new User();
     
     lblName = new JLabel("Name " +user.getName());
     lblName.setFont(new Font("Segoe UI", Font.PLAIN, 12));
