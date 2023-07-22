@@ -188,19 +188,19 @@ public class Deposit implements ActionListener{
     
     
     private void saveTransaction(Date datetransact, String typetransact, double amounttransact) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
-        String query = "INSERT INTO transactions (accountNumber, datetransact, typetransact, amounttransact) VALUES (?, ?, ?, ?)";
+    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+        String query = "INSERT INTO transactions (datetransact, typetransact, amounttransact, accountNumber) VALUES (?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, user.getAccNum());
-        preparedStatement.setTimestamp(2, new Timestamp(datetransact.getTime()));
-        preparedStatement.setString(3, typetransact);
-        preparedStatement.setDouble(4, amounttransact);
+        preparedStatement.setDate(1, new java.sql.Date(datetransact.getTime()));
+        preparedStatement.setString(2, typetransact);
+        preparedStatement.setDouble(3, amounttransact);
+        preparedStatement.setString(4, user.getAccNum()); // Set the account number for the transaction
         preparedStatement.executeUpdate();
     } catch (SQLException ex) {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error saving transaction!");
-    }
-    }
+    }   
+}
    
     private void updateSavingsBalance(double newBalance) {
     try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {

@@ -90,20 +90,20 @@ public class User {
 
   
     //BANK FUNCTIONS
-    public void subtractSavings(float x) {
-        SavingsBalance -= x;
+    public void subtractSavings(double amount) {
+        SavingsBalance -= amount;
     }
     
-    public void subtractChecking(float x) {
-        CheckingBalance -= x;
+    public void subtractChecking(double amount) {
+        CheckingBalance -= amount;
     }
     
-    public void addSavings(float x) {
-        SavingsBalance += x;
+    public void addSavings(double amount) {
+        SavingsBalance += amount;
     }
     
-    public void addChecking(float x) {
-        CheckingBalance += x;
+    public void addChecking(double amount) {
+        CheckingBalance += amount;
     }
     
     public boolean comparelogin(String phonenumber, String passphrase) {

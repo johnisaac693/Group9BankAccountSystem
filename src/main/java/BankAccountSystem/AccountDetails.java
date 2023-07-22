@@ -19,7 +19,7 @@ public class AccountDetails  extends JFrame {
     //fieldpanel and comps
     
     
-    lblName = new JLabel("Name " +user.getName());
+    lblName = new JLabel("Name: " +user.getName());
     lblName.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
     lblAccNo = new JLabel("Account Number: " +user.getAccNum());

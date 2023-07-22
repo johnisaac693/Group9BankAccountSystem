@@ -21,7 +21,7 @@ public class TransactionHistoryTrial2 extends JFrame {
     private DefaultTableModel model;
     private JPanel mainPanel;
 
-    private String[] columnNames = {"Date", "Type of Transaction", "Amount"};
+    private String[] columnNames = {"Date", "Type of Transaction", "Amount","Recipient Account Number"};
 
     User user = User.getInstance();
     public TransactionHistoryTrial2() {
@@ -57,24 +57,38 @@ public class TransactionHistoryTrial2 extends JFrame {
     }
     
     private void GetTransactionHistory() {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
-            String query = "SELECT * FROM transactions WHERE accountNumber = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, user.getAccNum());
-            ResultSet resultSet = preparedStatement.executeQuery();
+    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+        String query = "SELECT * FROM transactions WHERE accountNumber = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, user.getAccNum());
+        ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                Date date = resultSet.getDate("datetransact");
-                String type = resultSet.getString("typetransact");
-                double amount = resultSet.getDouble("amounttransact");
-
-                addTransaction(date, type, amount);
+        while (resultSet.next()) {
+            Date date = resultSet.getDate("datetransact");
+            String type = resultSet.getString("typetransact");
+            double amount = resultSet.getDouble("amounttransact");
+            String senderAccNum = resultSet.getString("accountNumber");
+            String recipientAccNum = resultSet.getString("recipientAccNum");
+            
+            //gets the type of transaction made by the user
+            if (type.equals("Withdraw")) {
+                addWithdrawal(date, amount); // Call addWithdrawal method for "Withdraw" transactions
+            } 
+            else if (type.equals("Deposit")){
+                addDeposit(date, amount); // For other transactions (e.g., "Deposit")
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error fetching transaction history!");
+            else if (type.equals("Transfer")) {
+                addTransfer(date, amount, recipientAccNum); // For Transfer transactions
+            }
+            
+            
         }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error fetching transaction history!");
     }
+}
+
 
     public void centerFrame() {
         Dimension currentScreen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -83,20 +97,23 @@ public class TransactionHistoryTrial2 extends JFrame {
         setLocation(x, y);
     }
 
-    // Implementing AddTransaction Method para makapag lagay ng sample transaction
-    private void addTransaction(Date date, String transaction, double amount) {
+    // Implementing AddDeposit, AddWithdrawal and addTransfer Method para makapag lagay ng information sa transaction history
+    private void addDeposit(Date date, double amount) {
         String dateString = date.toString();
-        Object[] rowData = {dateString, transaction, amount};
+        Object[] rowData = { dateString, "Deposit", amount };
         model.addRow(rowData);
     }
     
-//    public void addWithdrawal(Date date, double amount) {
-//    addTransaction(date, "Withdrawal", -amount);
-//}
-//
-//public void addDeposit(Date date, double amount) {
-//    addTransaction(date, "Deposit", amount);
-//}
-
+    private void addWithdrawal(Date date, double amount) {
+        String dateString = date.toString();
+        Object[] rowData = {dateString, "Withdrawal", amount};
+        model.addRow(rowData);
+    }
+    
+    private void addTransfer(Date date, double amount, String recipientAccNum) {
+    String dateString = date.toString();
+    Object[] rowData = { dateString, "Transfer", amount, "To: " + recipientAccNum };
+    model.addRow(rowData);
+}
 
 }

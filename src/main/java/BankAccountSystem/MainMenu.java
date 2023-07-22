@@ -97,6 +97,7 @@ public class MainMenu extends JFrame implements ActionListener {
             new TransactionHistoryTrial2();
         }
         else if (e.getSource()==btnLogout){
+            dispose();
             new ATMWelcomePage();
         }
         

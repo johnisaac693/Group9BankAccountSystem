@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import static javax.swing.JOptionPane.showMessageDialog;
 /**
  *
@@ -194,10 +195,16 @@ public class BankTransferTransaction extends JFrame implements ActionListener{
                         updateRecipientBalanceStatement.executeUpdate();
 
                         showMessageDialog(null, "You have transferred " + transferAmount + " to " + recipientName + " (" + recipientAccNum + ") from your Checking Account!");
-                    } else {
+                        
+                         saveTransferTransaction(new Date(), "Transfer", transferAmount, user.getAccNum(), recipientAccNum);
+                    } 
+                    
+                    else {
                         showMessageDialog(null, "Insufficient balance in your Checking Account!");
                     }
-                } else {
+                } 
+                
+                else {
                     showMessageDialog(null, "Recipient account not found!");
                 }
             } catch (SQLException ex) {
@@ -208,4 +215,21 @@ public class BankTransferTransaction extends JFrame implements ActionListener{
     
 }
     }
+    
+   private void saveTransferTransaction(Date datetransact, String typetransact, double amounttransact, String senderAccNum, String recipientAccNum) {
+    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+        String query = "INSERT INTO transactions (datetransact, typetransact, amounttransact, accountNumber, recipientAccNum) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setDate(1, new java.sql.Date(datetransact.getTime()));
+        preparedStatement.setString(2, typetransact);
+        preparedStatement.setDouble(3, amounttransact);
+        preparedStatement.setString(4, senderAccNum);
+        preparedStatement.setString(5, recipientAccNum);
+        preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error saving transfer transaction!");
+    }
+}
+
 }
