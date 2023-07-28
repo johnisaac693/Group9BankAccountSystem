@@ -151,35 +151,49 @@ public class Withdraw implements ActionListener{
     @Override
 public void actionPerformed(ActionEvent e) {
     if (e.getSource() == btnConfirmSavings) {
-        String savingwithdraw = txtSaving.getText();
-        float savingminus = Float.parseFloat(savingwithdraw);
-        user.subtractSavings(savingminus);
-        showMessageDialog(null, "You have withdrawn " + savingminus + " from your Savings Account!");
-        
-        // Save the deposit transaction to the database for checkings account
-        saveTransaction(new Date(), "Withdraw", savingminus);
-        
-        // Update the checking balance in the database
-        updateSavingsBalance(user.getSavingsBalance());
-        
-        f.dispose();
-        new Withdraw();
-      
-    }
+            String savingwithdraw = txtSaving.getText();
+            double savingminus = Double.parseDouble(savingwithdraw);
+
+            if (user.getSavingsBalance() >= savingminus) {
+                // If there is enough balance, withdrawal in savings account can be done
+                user.subtractSavings(savingminus);
+                showMessageDialog(null, "You have withdrawn " + savingminus + " from your Savings Account!");
+
+                saveTransaction(new Date(), "Withdraw", savingminus);
+
+                updateSavingsBalance(user.getSavingsBalance());
+                
+                 f.dispose();
+                 new Withdraw();
+            } 
+            else {
+                // If balance is not enough, withdrawal will be denied
+                showMessageDialog(null, "Insufficient funds in your Savings Account!", "Insufficient Funds", JOptionPane.ERROR_MESSAGE);
+            }
+        }
         
     if (e.getSource() == btnConfirmChecking) {
         String checkingwithdraw = txtChecking.getText();
-        float checkingminus = Float.parseFloat(checkingwithdraw);
-        user.subtractChecking(checkingminus);
-        showMessageDialog(null, "You have withdrawn "+ checkingminus + " from your Checking Account!");
+        double checkingminus = Double.parseDouble(checkingwithdraw);
         
-        saveTransaction(new Date(), "Withdraw", checkingminus);
+        if (user.getCheckingBalance()>= checkingminus){
+            //If there is enough balance, withdrawal in checkings account can be done
+            user.subtractChecking(checkingminus);
         
-        updateCheckingBalance(user.getCheckingBalance());
+            showMessageDialog(null, "You have withdrawn "+ checkingminus + " from your Checking Account!");
         
-        f.dispose();
-        new Withdraw();
+            saveTransaction(new Date(), "Withdraw", checkingminus);
+        
+            updateCheckingBalance(user.getCheckingBalance());
+        
+            f.dispose();
+            new Withdraw();
       
+        }
+        else {
+            // If balance is not enough, withdrawal will be denied
+            showMessageDialog(null, "Insufficient funds in your Checkings Account!", "Insufficient Funds", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
     

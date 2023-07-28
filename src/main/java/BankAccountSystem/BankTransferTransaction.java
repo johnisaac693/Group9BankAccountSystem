@@ -184,7 +184,7 @@ public class BankTransferTransaction extends JFrame implements ActionListener{
 
                     if (transferAmount <= userCheckingBalance) {
                         // Update sender's (user) checking balance
-                        user.subtractChecking((float) transferAmount);
+                        user.subtractChecking(transferAmount);
 
                         // Update recipient's checking balance
                         recipientCheckingBalance += transferAmount;
@@ -195,25 +195,26 @@ public class BankTransferTransaction extends JFrame implements ActionListener{
                         updateRecipientBalanceStatement.executeUpdate();
 
                         showMessageDialog(null, "You have transferred " + transferAmount + " to " + recipientName + " (" + recipientAccNum + ") from your Checking Account!");
+
+                        // Save the transaction for both sender and recipient
+                        saveTransferTransaction(new Date(), "Transfer", transferAmount, user.getAccNum(), recipientAccNum);
                         
-                         saveTransferTransaction(new Date(), "Transfer", transferAmount, user.getAccNum(), recipientAccNum);
+                        // Save the updated checking balance of the sender
+                        updateCheckingBalance(user.getCheckingBalance());
+                        
                     } 
-                    
                     else {
                         showMessageDialog(null, "Insufficient balance in your Checking Account!");
                     }
                 } 
-                
                 else {
                     showMessageDialog(null, "Recipient account not found!");
                 }
-            } catch (SQLException ex) {
+            } 
+            catch (SQLException ex) {
                 ex.printStackTrace();
             }
-       
-   
-    
-}
+        }
     }
     
    private void saveTransferTransaction(Date datetransact, String typetransact, double amounttransact, String senderAccNum, String recipientAccNum) {
@@ -231,5 +232,19 @@ public class BankTransferTransaction extends JFrame implements ActionListener{
         JOptionPane.showMessageDialog(null, "Error saving transfer transaction!");
     }
 }
+   
+   private void updateCheckingBalance(double newBalance) {
+    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
+        String query = "UPDATE customerinfo SET checkingBalance = ? WHERE customerAccNum = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setDouble(1, newBalance);
+        preparedStatement.setString(2, user.getAccNum());
+        preparedStatement.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error updating savings balance!");
+    }
+    }
+
 
 }
