@@ -22,15 +22,11 @@ public class AccountDetails  extends JFrame {
     lblName = new JLabel("Name: " +user.getName());
     lblName.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
-    lblAccNo = new JLabel("Account Number: " +user.getAccNum());
+    lblAccNo = new JLabel("Account ID: " +user.getAccNum());
     lblAccNo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     
     lblEmail = new JLabel("Email: " +user.getEmail());
-    lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-    
-    lblPassword = new JLabel("Password: " +user.getPassword());
-    lblPassword.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-    
+    lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12)); 
     
     lblMobileNum = new JLabel("Mobile Number: " +user.getMobileNum());
     lblMobileNum.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -55,11 +51,7 @@ public class AccountDetails  extends JFrame {
     c.gridx = 0;
     c.gridy = 1;
     fieldpanel.add(lblAccNo, c);
-    
-    c.gridx = 0;
-    c.gridy = 2;
-    fieldpanel.add(lblPassword, c);
-    
+  
     c.gridx = 0;
     c.gridy = 3;
     fieldpanel.add(lblMobileNum, c);

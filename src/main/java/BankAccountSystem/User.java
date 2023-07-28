@@ -87,6 +87,11 @@ public class User {
     public void setAccNumber(String accString){
         AccNum = accString;
     }
+    
+    public boolean comparepass(String passcompare)
+    {
+    return (passcompare == password);
+    }
 
   
     //BANK FUNCTIONS
@@ -106,9 +111,7 @@ public class User {
         CheckingBalance += amount;
     }
     
-    public boolean comparelogin(String phonenumber, String passphrase) {
-        return password.equals(passphrase) && mobilenum.equals(phonenumber);
-}
+    
 }
 
     

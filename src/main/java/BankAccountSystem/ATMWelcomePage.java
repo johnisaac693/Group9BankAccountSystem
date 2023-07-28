@@ -18,9 +18,9 @@ public class ATMWelcomePage implements ActionListener {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(600, 300);
         f.setLocationRelativeTo(null);
-        f.setLayout(new FlowLayout());
+        f.setLayout(null);
         f.setVisible(true);
-        f.setResizable(true);
+        f.setResizable(false);
 
         JLabel welcomeLabel = new JLabel("WELCOME TO THE BANK ACCOUNT MANAGER!");
         welcomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));

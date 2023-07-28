@@ -162,6 +162,9 @@ public class Deposit implements ActionListener{
             
             // Update the savings balance in the database
             updateSavingsBalance(user.getSavingsBalance());
+            
+            f.dispose();
+            new Deposit();
         }  
         
         if (e.getSource() == btnConfirmChecking)
@@ -176,6 +179,9 @@ public class Deposit implements ActionListener{
             
              // Update the checking balance in the database
              updateCheckingBalance(user.getCheckingBalance());
+             
+            f.dispose();
+            new Deposit();
            
         }
         
