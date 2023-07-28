@@ -156,10 +156,14 @@ public void actionPerformed(ActionEvent e) {
         user.subtractSavings(savingminus);
         showMessageDialog(null, "You have withdrawn " + savingminus + " from your Savings Account!");
         
+        // Save the deposit transaction to the database for checkings account
         saveTransaction(new Date(), "Withdraw", savingminus);
         
+        // Update the checking balance in the database
         updateSavingsBalance(user.getSavingsBalance());
         
+        f.dispose();
+        new Withdraw();
       
     }
         
@@ -173,7 +177,8 @@ public void actionPerformed(ActionEvent e) {
         
         updateCheckingBalance(user.getCheckingBalance());
         
-        
+        f.dispose();
+        new Withdraw();
       
     }
 }
@@ -208,7 +213,7 @@ public void actionPerformed(ActionEvent e) {
     
     private void updateCheckingBalance(double newBalance) {
     try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankamsdb", "root", "asdf12")) {
-        String query = "UPDATE customerinfo SET savingsBalance = ? WHERE customerAccNum = ?";
+        String query = "UPDATE customerinfo SET checkingBalance = ? WHERE customerAccNum = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setDouble(1, newBalance);
         preparedStatement.setString(2, user.getAccNum());

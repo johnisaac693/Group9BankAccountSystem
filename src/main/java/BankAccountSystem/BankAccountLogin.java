@@ -18,7 +18,8 @@ public class BankAccountLogin implements ActionListener{
      private JLabel lblPhoneNumber, lblPassword;
      private JTextField phonenum = new JTextField();
      private JPasswordField password = new JPasswordField();
-     private JButton btnLogin, btnForgotPassword;
+     private JButton btnLogin, btnForgotPassword, btnBack;
+    
 
     public BankAccountLogin() {
      f.setSize(400, 300);
@@ -29,35 +30,42 @@ public class BankAccountLogin implements ActionListener{
 
      lblPhoneNumber = new JLabel("Phone Number:");
      lblPhoneNumber.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-     lblPhoneNumber.setBounds(50, 63, 84, 19);
+     lblPhoneNumber.setBounds(70, 63, 84, 19);
 
      lblPassword = new JLabel("Password:");
      lblPassword.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-     lblPassword.setBounds(50, 85, 53, 19);
+     lblPassword.setBounds(70, 85, 53, 19);
 
-     phonenum.setBounds(136,59 , 150, 22);
+     phonenum.setBounds(156,59 , 150, 22);
      phonenum.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
-     password.setBounds(105, 82, 181, 22);
+     password.setBounds(156, 82, 150, 22);
 
      btnLogin = new JButton("Login");
      btnLogin.setFont(new Font("Segoe UI", Font.PLAIN, 12));
      btnLogin.setBackground(Color.white);
-     btnLogin.setBounds(82, 112, 72, 23);
+     btnLogin.setBounds(160, 127, 72, 23);
      btnLogin.addActionListener(this);
 
      btnForgotPassword = new JButton("Forgot Password?");
      btnForgotPassword.setFont(new Font("Segoe UI", Font.PLAIN, 12));
      btnForgotPassword.setBackground(Color.white);
-     btnForgotPassword.setBounds(171, 112, 130, 23);
+     btnForgotPassword.setBounds(130, 155, 127, 23);
      btnForgotPassword.addActionListener(this);
-
+     
+     btnBack = new JButton("Return");
+     btnBack.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+     btnBack.setBackground(Color.white);
+     btnBack.setBounds(290, 210, 75, 23);
+     btnBack.addActionListener(this);
+     
      f.add(lblPhoneNumber);
      f.add(lblPassword);
      f.add(phonenum);
      f.add(password);
      f.add(btnLogin);
      f.add(btnForgotPassword);
+     f.add(btnBack);
 }
 
     @Override
@@ -80,6 +88,11 @@ public class BankAccountLogin implements ActionListener{
             ResultSet resultSet = preparedStatement.executeQuery();
 
            if (resultSet.next()) {
+                String storedpassword = resultSet.getString("customerPass");
+                
+                if (passphrase.equals(storedpassword))
+                {
+                    
                     String accNum = resultSet.getString("customerAccNum");
                     String name = resultSet.getString("customerName");
                     String email = resultSet.getString("customerEmail");
@@ -103,10 +116,15 @@ public class BankAccountLogin implements ActionListener{
                     showMessageDialog(null, "Login Successful!");
                     f.dispose();
                     new MainMenu();
-                } else {
+                } 
+                else {
                     showMessageDialog(null, "Incorrect Credentials");
                 }
-            } catch (SQLException ex) {
+            } else {
+                    showMessageDialog(null, "Incorrect Credentials");
+                }
+            }
+           catch (SQLException ex) {
                 ex.printStackTrace();
             }
             
@@ -115,5 +133,10 @@ public class BankAccountLogin implements ActionListener{
             f.dispose();
             new ForgotPassword();
         }
+        else if (e.getSource()== btnBack){
+            f.dispose();
+            new ATMWelcomePage();
+        }
     }
 }
+    

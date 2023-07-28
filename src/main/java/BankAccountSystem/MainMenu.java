@@ -11,6 +11,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private JButton btnTransaction, btnTransacHistory, btnAccdetails, btnLogout;
     
+    
     JPanel fieldpanel, mainPanel;
     GridBagConstraints c;
 

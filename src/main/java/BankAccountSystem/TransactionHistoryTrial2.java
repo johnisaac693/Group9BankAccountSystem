@@ -25,11 +25,17 @@ public class TransactionHistoryTrial2 extends JFrame {
 
     User user = User.getInstance();
     public TransactionHistoryTrial2() {
+        
+        
 
         setTitle("Transaction History");
         setSize(600, 400);
 
-        model = new DefaultTableModel(columnNames, 0);
+        model = new DefaultTableModel(columnNames, 0){
+        @Override
+                public boolean isCellEditable(int row, int column){
+                    return false;
+    }};
 
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -47,6 +53,7 @@ public class TransactionHistoryTrial2 extends JFrame {
         centerFrame();
         setVisible(true);
         setResizable(false);
+       
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         // Sample Transaction
